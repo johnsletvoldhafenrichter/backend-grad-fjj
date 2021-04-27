@@ -11,7 +11,7 @@ const database = new Pool({
 function getUsers() {
     return database.query(`
         SELECT *
-        FROM category
+        FROM users
     `).then((results: any) => results.rows).catch((err: any) => err)
 }
 
