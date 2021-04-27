@@ -1,3 +1,6 @@
+const pg = require('pg');
+// Adding ssl requirements to the database connection
+pg.defaults.ssl = {rejectUnauthorized: false};
 const {Pool} = require('pg');
 const databaseUrl = process.env.DB_URI;
 
@@ -9,11 +12,7 @@ function getUsers() {
     return database.query(`
         SELECT *
         FROM category
-    `).then((results: any) => results).catch((err: any) => {
-        // tslint:disable-next-line:no-console
-        console.log(err, err.message);
-        return err;
-    })
+    `).then((results: any) => results.rows).catch((err: any) => err)
 }
 
 export {getUsers}
