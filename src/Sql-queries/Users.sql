@@ -42,8 +42,8 @@ VALUES ('Akershus Universitetssykehus'),
        ('Sykehuset Innlandet');
 
 -- First user based on user stories
-INSERT INTO users (first_name, last_name, phone_number, email, password, position_id, location_id, category_id)
-VALUES ('Marthe', 'Nordnes', 42682942, 'marthe@nordnes.no', 'passord123', 2, 1, 17);
+INSERT INTO users (first_name, last_name, phone_number, email, password, position_id, location_id, category_id, user_name)
+VALUES ('Marthe', 'Nordnes', 42682942, 'marthe@nordnes.no', 'passord123', 2, 1, 17, 'marthenordnes');
 
 
 
