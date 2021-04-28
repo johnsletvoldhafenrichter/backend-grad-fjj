@@ -8,6 +8,7 @@ CREATE TABLE users (
                        position_id INT,
                        location_id INT,
                        category_id INT,
+                       user_name VARCHAR(25) UNIQUE NOT NULL,
                        PRIMARY KEY (user_id),
                        FOREIGN KEY (position_id)
                            REFERENCES position (position_id),
@@ -86,3 +87,4 @@ CREATE TABLE user_courses (
                               course_id INT NOT NULL,
                               FOREIGN KEY (course_id) REFERENCES courses(course_id)
 );
+
