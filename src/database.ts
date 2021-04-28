@@ -24,7 +24,7 @@ function getALlCourses() {
 
 function getUserByUserName(userName: string) {
     return database.query(`
-    SELECT * FROM users WHERE first_name = $1
+    SELECT * FROM users WHERE user_name = $1
   `, [userName])
       // tslint:disable-next-line:no-console
         .then((results: any) => results.rows[0])

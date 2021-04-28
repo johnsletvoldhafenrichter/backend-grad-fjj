@@ -6,12 +6,11 @@ const bodyParser = require('body-parser');
 const cors = require('cors');
 const jwt = require('jsonwebtoken');
 
-
 const { authenticate } = require('./authenticate');
 import { getUsers, getALlCourses, getUserByUserName } from './database';
 
-const port = 3333; // default port to listen
-const secret = 'tunestamErKul1234';
+const port = process.env.PORT; // default port to listen
+const secret = process.env.SECRET;
 const app = express();
 
 
@@ -23,7 +22,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 
 // define a route handler for the default home page
-app.get("/", authenticate, (req, res) => {
+app.get("/", (req, res) => {
   res.send("Hello World!");
 })
 

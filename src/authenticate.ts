@@ -1,5 +1,5 @@
 const jwt = require('jsonwebtoken');
-const secret = 'tunestamErKul1234';
+const secret = process.env.SECRET;
 
 export function authenticate(req: any, res: any, next: any) {
     const token = req.headers['x-auth-token'];
