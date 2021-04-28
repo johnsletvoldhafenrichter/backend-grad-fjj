@@ -1,7 +1,7 @@
 const jwt = require('jsonwebtoken');
 const secret = process.env.SECRET;
 
-export function authenticate(req, res, next) {
+function authenticate(req, res, next) {
     const token = req.headers['x-auth-token'];
 
     try {
@@ -18,3 +18,6 @@ export function authenticate(req, res, next) {
         });
     }
 }
+module.exports = {
+    authenticate
+};

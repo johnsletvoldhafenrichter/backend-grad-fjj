@@ -30,4 +30,4 @@ function getUserByUserName(userName) {
         .then((results) => results.rows[0])
 }
 
-export {getUsers, getALlCourses, getUserByUserName}
+module.exports = {getUsers, getALlCourses, getUserByUserName};

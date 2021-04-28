@@ -1,13 +1,12 @@
-import express from "express";
-import { config } from 'dotenv';
-config();
+const express = require('express');
+require('dotenv').config();
 
 const bodyParser = require('body-parser');
 const cors = require('cors');
 const jwt = require('jsonwebtoken');
 
 const { authenticate } = require('./authenticate');
-import { getUsers, getALlCourses, getUserByUserName } from './database.js';
+const { getUsers, getALlCourses, getUserByUserName } = require('./database.js');
 
 const port = process.env.PORT || 3333; // default port to listen
 const secret = process.env.SECRET;
