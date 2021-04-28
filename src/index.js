@@ -22,45 +22,48 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 // define a route handler for the default home page
 app.get("/", (req, res) => {
-    res.send("Hello World!");
+  res.send("Hello World!");
 })
 
 app.post('/session', async (req, res) => {
-    const { userName, password } = req.body;
-    try {
-        const user = await getUserByUserName(userName);
+  const { userName, password } = req.body;
+  try {
+    const user = await getUserByUserName(userName);
 
-        if (!user) {
-            return res.status(401).send({ error: 'Unknown user' });
-        }
-
-        if (user.password !== password) {
-            return res.status(401).send({ error: 'Wrong password' });
-        }
-
-        const token = jwt.sign({
-            id: user.id,
-            handle: user.handle,
-            name: user.name,
-        }, Buffer.from(secret, 'base64'));
-
-        res.send({token});
-    } catch (error) {
-        res.status(500).send({ error: error.message });
+    if (!user) {
+      return res.status(401).send({ error: 'Unknown user' });
     }
+
+    if (user.password !== password) {
+      return res.status(401).send({ error: 'Wrong password' });
+    }
+
+    const token = jwt.sign({
+      id: user.id,
+      userName: user.userName
+    }, Buffer.from(secret, 'base64'));
+
+    res.send({token});
+  } catch (error) {
+    res.status(500).send({ error: error.message });
+  }
+});
+
+app.get('/authenticate', authenticate, (req, res, next) => {
+    res.sendStatus(200);
 });
 
 app.get("/users", async (req, res) => {
-    const users = await getUsers();
-    res.send(users);
+  const users = await getUsers();
+  res.send(users);
 });
 
 app.get('/courses', async (rec, res) => {
-    const courses = await getALlCourses();
-    res.send(courses);
+  const courses = await getALlCourses();
+  res.send(courses);
 });
 
 // start the Express server
 app.listen(port, () => {
-    console.log(`server started at http://localhost:${port}`);
+  console.log(`server started at http://localhost:${port}`);
 });
