@@ -9,7 +9,7 @@ const jwt = require('jsonwebtoken');
 const { authenticate } = require('./authenticate');
 import { getUsers, getALlCourses, getUserByUserName } from './database';
 
-const port = process.env.PORT; // default port to listen
+const port = process.env.PORT || 3333; // default port to listen
 const secret = process.env.SECRET;
 const app = express();
 
