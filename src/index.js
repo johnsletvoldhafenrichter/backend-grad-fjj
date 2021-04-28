@@ -49,8 +49,8 @@ app.post('/session', async (req, res) => {
   }
 });
 
-app.get('/authenticate', authenticate, (req, res, next) => {
-    res.sendStatus(200);
+app.get('/authenticate', authenticate, (req, res) => {
+    res.status(200).send("OK");
 });
 
 app.get("/users", async (req, res) => {
