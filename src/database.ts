@@ -3,6 +3,7 @@ const pg = require('pg');
 pg.defaults.ssl = {rejectUnauthorized: false};
 const {Pool} = require('pg');
 const databaseUrl = process.env.DATABASE_URL;
+const test = "";
 
 const database = new Pool({
     connectionString: databaseUrl
