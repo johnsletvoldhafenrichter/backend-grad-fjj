@@ -13,22 +13,21 @@ function getUsers() {
     return database.query(`
         SELECT *
         FROM users
-    `).then((results: any) => results.rows).catch((err: any) => err)
+    `).then((results) => results.rows).catch((err) => err)
 }
 
 function getALlCourses() {
     return database.query(`
         SELECT *
         FROM courses
-    `).then((results: any) => results.rows).catch((err: any) => err)
+    `).then((results) => results.rows).catch((err) => err)
 }
 
-function getUserByUserName(userName: string) {
+function getUserByUserName(userName) {
     return database.query(`
     SELECT * FROM users WHERE user_name = $1
   `, [userName])
-      // tslint:disable-next-line:no-console
-        .then((results: any) => results.rows[0])
+        .then((results) => results.rows[0])
 }
 
 export {getUsers, getALlCourses, getUserByUserName}
