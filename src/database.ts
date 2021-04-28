@@ -11,8 +11,23 @@ const database = new Pool({
 function getUsers() {
     return database.query(`
         SELECT *
-        FROM category
+        FROM users
     `).then((results: any) => results.rows).catch((err: any) => err)
 }
 
-export {getUsers}
+function getALlCourses() {
+    return database.query(`
+        SELECT *
+        FROM courses
+    `).then((results: any) => results.rows).catch((err: any) => err)
+}
+
+function getUserByUserName(userName: string) {
+    return database.query(`
+    SELECT * FROM users WHERE first_name = $1
+  `, [userName])
+      // tslint:disable-next-line:no-console
+        .then((results: any) => results.rows[0])
+}
+
+export {getUsers, getALlCourses, getUserByUserName}
