@@ -2,7 +2,7 @@ const pg = require('pg');
 // Adding ssl requirements to the database connection
 pg.defaults.ssl = {rejectUnauthorized: false};
 const {Pool} = require('pg');
-const databaseUrl = process.env.DB_URI;
+const databaseUrl = process.env.DATABASE_URL;
 
 const database = new Pool({
     connectionString: databaseUrl
