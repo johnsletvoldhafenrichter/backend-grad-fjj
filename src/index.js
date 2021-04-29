@@ -61,10 +61,16 @@ app.get("/users", async (req, res) => {
   res.send(users);
 });
 
-app.get('/courses', async (rec, res) => {
+app.get('/courses', async (req, res) => {
   const courses = await getALlCourses();
   res.send(courses);
 });
+
+app.get('/profile', async (req, res) => {
+  const { id } = req.body;
+  const userProfile = await getUserProfile(id);
+  res.send(userProfile);
+})
 
 // start the Express server
 app.listen(port, () => {
