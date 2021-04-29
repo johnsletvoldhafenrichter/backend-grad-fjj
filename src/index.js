@@ -23,57 +23,61 @@ app.get("/", (req, res) => {
     res.send("Hello World!");
 })
 
-app.post('/session', async (req, res) => {
-    const {userName, password} = req.body;
-    try {
-        const user = await getUserByUserName(userName);
+app.post('/session', async (req, res, next) => {
+  const {userName, password} = req.body;
+  try {
+    const user = await getUserByUserName(userName);
 
-        if (!user) {
-            return res.status(401).send({error: 'Unknown user'});
-        }
-
-        if (user.password !== password) {
-            return res.status(401).send({error: 'Wrong password'});
-        }
-
-        const token = jwt.sign({
-            id: user.user_id,
-            userName: user.user_name
-        }, secret);
-
-        res.send({token});
-    } catch (error) {
-        res.status(500).send({error: error.message});
+    if (!user) {
+      return res.status(401).send('Unknown user');
     }
+    if (user.password !== password) {
+      return res.status(401).send('Wrong password');
+    }
+
+    const token = jwt.sign({
+      id: user.user_id,
+      userName: user.user_name
+    }, secret);
+
+    res.send({token});
+  } catch
+    (error) {
+    next(error);
+  }  
 });
 
 app.get('/authenticate', authenticate, (req, res) => {
     res.status(200).send("OK");
 });
 
-app.get('/courses', authenticate, async (req, res) => {
-    try {
-        const courses = await getALlCourses();
-        if (!courses) {
-            throw new Error("Found nothing!");
-        }
-        res.send(courses);
-    } catch (error) {
-        res.status(500).send({error: error.message});
+app.get('/courses', authenticate, async (req, res, next) => {
+  try {
+    const courses = await getALlCourses();
+    if (!courses) {
+      res.status(404).send('Nothing found in Database!')
+      return;
     }
-});
+    res.send(courses);
+  } catch
+    (error) {
+    next(error);
+  }
+})
+;
 
-app.post('/profile', authenticate, async (req, res) => {
-    try {
-        const {userId} = req.body;
-        const userProfile = await getUserProfile(userId);
-        if (!userProfile) {
-            throw new Error("Found nothing!");
-        }
-        res.send(userProfile);
-    } catch (error) {
-        res.status(500).send({error: error.message});
+app.post('/profile', authenticate, async (req, res, next) => {
+  try {
+    const {userId} = req.body;
+    const userProfile = await getUserProfile(userId);
+    if (!userProfile) {
+      res.status(404).send('Nothing found in Database!')
+      return;
     }
+    res.send(userProfile);
+  } catch (error) {
+    next(error);
+  }
 })
 
 // start the Express server
