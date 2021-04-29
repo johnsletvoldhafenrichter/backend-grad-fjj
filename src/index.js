@@ -6,7 +6,7 @@ const cors = require('cors');
 const jwt = require('jsonwebtoken');
 
 const {authenticate} = require('./authenticate');
-const {getALlCourses, getUserByUserName, getUserProfile} = require('./database.js');
+const {getALlCourses, getUserByUserName, getUserProfile, getCourseById} = require('./database.js');
 
 const port = process.env.PORT || 3333; // default port to listen
 const secret = process.env.SECRET;
@@ -64,7 +64,21 @@ app.get('/courses', authenticate, async (req, res, next) => {
     next(error);
   }
 })
-;
+
+app.post('/course', authenticate, async (req, res, next) => {
+  try {
+    const {courseId} = req.body;
+    const course = await getCourseById(courseId)
+    if (!course) {
+      res.status(404).send('Could not find course, sorry')
+      return;
+    }
+    res.send(course);
+  } catch (error) {
+    next(error);
+  }
+})
+
 
 app.post('/profile', authenticate, async (req, res, next) => {
   try {

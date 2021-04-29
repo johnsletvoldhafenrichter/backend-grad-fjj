@@ -40,6 +40,15 @@ function getALlCourses() {
   `).then((results) => results.rows)
 };
 
+function getCourseById(courseId) {
+  return database.query(`
+    SELECT *
+    FROM courses
+    WHERE course_id = $1;
+  `, [courseId])
+    .then(results => results.rows[0])
+}
+
 function getUserByUserName(userName) {
   return database.query(`
       SELECT *
@@ -49,4 +58,4 @@ function getUserByUserName(userName) {
     .then((results) => results.rows[0])
 }
 
-module.exports = { getALlCourses, getUserByUserName, getUserProfile};
+module.exports = { getALlCourses, getUserByUserName, getUserProfile, getCourseById};
