@@ -1,19 +1,16 @@
-CREATE TABLE courses (
-                         course_id SERIAL PRIMARY KEY,
-                         image_url VARCHAR(250),
-                         image_description VARCHAR(250),
-                         course_description VARCHAR(1000),
-                         course_name VATRCHAR(50),
-                         start_date DATE,
-                         end_date DATE,
-                         enrollment_start DATE,
-                         enrollment_end DATE,
-                         org VARCHAR(100)
-);
-
-ALTER TABLE courses
-ALTER COLUMN course_name
-TYPE VARCHAR (50);
+-- Table layout
+-- CREATE TABLE courses (
+--                          course_id SERIAL PRIMARY KEY,
+--                          image_url VARCHAR(250),
+--                          image_description VARCHAR(250),
+--                          course_description VARCHAR(1000),
+--                          course_name VATRCHAR(50),
+--                          start_date DATE,
+--                          end_date DATE,
+--                          enrollment_start DATE,
+--                          enrollment_end DATE,
+--                          org VARCHAR(100)
+-- );
 
 -- Courses inserted into database
 INSERT INTO courses (
