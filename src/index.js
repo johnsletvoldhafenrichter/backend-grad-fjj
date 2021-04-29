@@ -20,49 +20,63 @@ app.use(bodyParser.urlencoded({extended: true}));
 
 // define a route handler for the default home page
 app.get("/", (req, res) => {
-  res.send("Hello World!");
+    res.send("Hello World!");
 })
 
 app.post('/session', async (req, res) => {
-  const {userName, password} = req.body;
-  try {
-    const user = await getUserByUserName(userName);
+    const {userName, password} = req.body;
+    try {
+        const user = await getUserByUserName(userName);
 
-    if (!user) {
-      return res.status(401).send({error: 'Unknown user'});
+        if (!user) {
+            return res.status(401).send({error: 'Unknown user'});
+        }
+
+        if (user.password !== password) {
+            return res.status(401).send({error: 'Wrong password'});
+        }
+
+        const token = jwt.sign({
+            id: user.user_id,
+            userName: user.user_name
+        }, secret);
+
+        res.send({token});
+    } catch (error) {
+        res.status(500).send({error: error.message});
     }
-
-    if (user.password !== password) {
-      return res.status(401).send({error: 'Wrong password'});
-    }
-
-    const token = jwt.sign({
-      id: user.user_id,
-      userName: user.user_name
-    }, secret);
-
-    res.send({token});
-  } catch (error) {
-    res.status(500).send({error: error.message});
-  }
 });
 
 app.get('/authenticate', authenticate, (req, res) => {
-  res.status(200).send("OK");
+    res.status(200).send("OK");
 });
 
 app.get('/courses', authenticate, async (req, res) => {
-    const courses = await getALlCourses();
-    res.send(courses);
+    try {
+        const courses = await getALlCourses();
+        if (!courses) {
+            throw new Error("Found nothing!");
+        }
+        res.send(courses);
+    } catch (error) {
+        res.status(500).send({error: error.message});
+    }
 });
 
 app.post('/profile', authenticate, async (req, res) => {
-  const {userId} = req.body;
-  const userProfile = await getUserProfile(userId);
-  res.send(userProfile);
+    try {
+        const {userId} = req.body;
+        const userProfile = await getUserProfile(userId);
+        if (!userProfile) {
+            throw new Error("Found nothing!");
+        }
+        res.send(userProfile);
+    } catch (error) {
+        res.status(500).send({error: error.message});
+    }
 })
 
 // start the Express server
 app.listen(port, () => {
-  console.log(`server started at http://localhost:${port}`);
+    console.log(`server started at http://localhost:${port}`);
 });
