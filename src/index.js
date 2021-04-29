@@ -6,7 +6,7 @@ const cors = require('cors');
 const jwt = require('jsonwebtoken');
 
 const { authenticate } = require('./authenticate');
-const { getUsers, getALlCourses, getUserByUserName } = require('./database.js');
+const { getUsers, getALlCourses, getUserByUserName, getUserProfile } = require('./database.js');
 
 const port = process.env.PORT || 3333; // default port to listen
 const secret = process.env.SECRET;
@@ -63,9 +63,9 @@ app.get('/courses', async (req, res) => {
   res.send(courses);
 });
 
-app.get('/profile', async (req, res) => {
-  const { id } = req.body;
-  const userProfile = await getUserProfile(id);
+app.post('/profile', authenticate, async (req, res) => {
+  const { userId } = req.body;
+  const userProfile = await getUserProfile(userId);
   res.send(userProfile);
 })
 
