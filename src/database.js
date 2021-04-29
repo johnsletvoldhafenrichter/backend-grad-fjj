@@ -3,7 +3,7 @@ const pg = require('pg');
 pg.defaults.ssl = {rejectUnauthorized: false};
 const {Pool} = require('pg');
 const databaseUrl = process.env.DATABASE_URL;
-const test = "";
+
 
 const database = new Pool({
     connectionString: databaseUrl
@@ -15,6 +15,16 @@ function getUsers() {
         FROM users
     `).then((results) => results.rows).catch((err) => err)
 }
+
+function getUserProfile(userId) {
+    return database.query(`
+        SELECT *
+        FROM users
+        WHERE user_id = $1
+    `, [userId])
+      .then(results => results.rows[0])
+}
+
 
 function getALlCourses() {
     return database.query(`
@@ -30,4 +40,4 @@ function getUserByUserName(userName) {
         .then((results) => results.rows[0])
 }
 
-module.exports = {getUsers, getALlCourses, getUserByUserName};
+module.exports = {getUsers, getALlCourses, getUserByUserName, getUserProfile};
