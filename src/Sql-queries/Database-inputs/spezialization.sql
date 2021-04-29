@@ -5,7 +5,7 @@
 -- );
 
 INSERT INTO specialization(specialization_name)
-VALUES ('Akutt- og mottaksmedison'),
+VALUES ('Akutt- og mottaksmedisin'),
        ('Allmennmedisin'),
        ('Barnekirurgi'),
        ('Fødselshjelp og kvinnesykdommer'),
@@ -20,4 +20,7 @@ VALUES ('Akutt- og mottaksmedison'),
        ('Revmatologi'),
        ('Samfunnsmedisin'),
        ('Urologi'),
-       ('Øre-nese-halssykdommer');
+       ('Øre-nese-halssykdommer'),
+       ('Indremedisin'),
+       ('Infeksjonssykdommer')
+;
