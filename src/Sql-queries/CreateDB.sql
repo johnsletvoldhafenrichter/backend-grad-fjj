@@ -7,15 +7,16 @@ CREATE TABLE users (
                        password VARCHAR(100) NOT NULL,
                        position_id INT,
                        location_id INT,
-                       category_id INT,
-                       user_name VARCHAR(25) UNIQUE NOT NULL,
+                       specialization_id INT,
                        PRIMARY KEY (user_id),
                        FOREIGN KEY (position_id)
                            REFERENCES position (position_id),
                        FOREIGN KEY (location_id)
                            REFERENCES location (location_id),
-                       FOREIGN KEY (category_id)
-                           REFERENCES category (category_id)
+                       FOREIGN KEY (specialization_id)
+                           REFERENCES specialization (specialization_id),
+                       user_name VARCHAR(25) UNIQUE NOT NULL,
+                        profile_picture VARCHAR(250)
 );
 
 CREATE TABLE position (
@@ -43,7 +44,7 @@ CREATE TABLE courses (
                          image_url VARCHAR(250),
                          image_description VARCHAR(250),
                          course_description VARCHAR(1000),
-                         course_name DATE,
+                         course_name VARCHAR(50),
                          start_date DATE,
                          end_date DATE,
                          enrollment_start DATE,
@@ -68,14 +69,15 @@ CREATE TABLE position_courses (
 );
 
 CREATE TABLE category_courses (
-                                  category_id INT NOT NULL,
-                                  FOREIGN KEY (category_id) REFERENCES category(category_id),
-                                  course_id INT NOT NULL,
-                                  FOREIGN KEY (course_id) REFERENCES courses(course_id)
+                              category_id INT NOT NULL,
+                              FOREIGN KEY (category_id) REFERENCES category(category_id),
+                              course_id INT NOT NULL,
+                              FOREIGN KEY (course_id) REFERENCES courses(course_id)
 );
 
-specialization_id INT NOT NULL,
+
 CREATE TABLE specialization_courses (
+                                        specialization_id INT NOT NULL,
                                         FOREIGN KEY (specialization_id) REFERENCES specialization(specialization_id),
                                         course_id INT NOT NULL,
                                         FOREIGN KEY (course_id) REFERENCES courses(course_id)
@@ -87,4 +89,7 @@ CREATE TABLE user_courses (
                               course_id INT NOT NULL,
                               FOREIGN KEY (course_id) REFERENCES courses(course_id)
 );
+
+
+
 

@@ -20,32 +20,19 @@ app.use(bodyParser.urlencoded({extended: true}));
 
 // define a route handler for the default home page
 app.get("/", (req, res) => {
-  res.send("Hello World!");
+    res.send("Hello World!");
 })
 
-<<<<<<< Updated upstream
-app.post('/session', async (req, res) => {
-=======
 app.post('/session', async (req, res, next) => {
->>>>>>> Stashed changes
   const {userName, password} = req.body;
   try {
     const user = await getUserByUserName(userName);
 
     if (!user) {
-<<<<<<< Updated upstream
-      return res.status(401).send({error: 'Unknown user'});
-    }
-
-    if (user.password !== password) {
-      return res.status(401).send({error: 'Wrong password'});
-=======
       return res.status(401).send('Unknown user');
     }
-
     if (user.password !== password) {
       return res.status(401).send('Wrong password');
->>>>>>> Stashed changes
     }
 
     const token = jwt.sign({
@@ -54,32 +41,16 @@ app.post('/session', async (req, res, next) => {
     }, secret);
 
     res.send({token});
-<<<<<<< Updated upstream
-  } catch (error) {
-    res.status(500).send({error: error.message});
-=======
   } catch
     (error) {
     next(error);
->>>>>>> Stashed changes
-  }
+  }  
 });
 
 app.get('/authenticate', authenticate, (req, res) => {
-  res.status(200).send("OK");
+    res.status(200).send("OK");
 });
 
-<<<<<<< Updated upstream
-app.get('/courses', authenticate, async (req, res) => {
-    const courses = await getALlCourses();
-    res.send(courses);
-});
-
-app.post('/profile', authenticate, async (req, res) => {
-  const {userId} = req.body;
-  const userProfile = await getUserProfile(userId);
-  res.send(userProfile);
-=======
 app.get('/courses', authenticate, async (req, res, next) => {
   try {
     const courses = await getALlCourses();
@@ -107,10 +78,9 @@ app.post('/profile', authenticate, async (req, res, next) => {
   } catch (error) {
     next(error);
   }
->>>>>>> Stashed changes
 })
 
 // start the Express server
 app.listen(port, () => {
-  console.log(`server started at http://localhost:${port}`);
+    console.log(`server started at http://localhost:${port}`);
 });
