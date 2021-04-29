@@ -1,9 +1,6 @@
 const express = require('express');
 require('dotenv').config();
 
-
-console.log("?????????")
-
 const bodyParser = require('body-parser');
 const cors = require('cors');
 const jwt = require('jsonwebtoken');
@@ -42,9 +39,9 @@ app.post('/session', async (req, res) => {
     }
 
     const token = jwt.sign({
-      id: user.id,
-      userName: user.userName
-    }, Buffer.from(secret, 'base64'));
+      id: user.user_id,
+      userName: user.user_name
+    }, secret);
 
     res.send({token});
   } catch (error) {

@@ -7,7 +7,7 @@ function authenticate(req, res, next) {
     try {
         const payload = jwt.verify(
             token,
-            Buffer.from(secret, 'base64')
+            secret
         );
 
         req.user = payload;
