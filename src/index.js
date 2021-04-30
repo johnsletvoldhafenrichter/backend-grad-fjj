@@ -6,7 +6,7 @@ const cors = require('cors');
 const jwt = require('jsonwebtoken');
 
 const {authenticate} = require('./authenticate');
-const {getALlCourses, getUserByUserName, getUserProfile, getCourseById} = require('./database.js');
+const {getALlCourses, getUserByUserName, getUserProfile, getCourseById, getObligUserCoursesByUserId} = require('./database.js');
 
 const port = process.env.PORT || 3333; // default port to listen
 const secret = process.env.SECRET;
@@ -40,7 +40,7 @@ app.post('/session', async (req, res, next) => {
       userName: user.user_name
     }, secret);
 
-    res.send({token});
+    res.send({token, id: user.user_id});
   } catch
     (error) {
     next(error);
@@ -79,6 +79,34 @@ app.post('/course', authenticate, async (req, res, next) => {
   }
 })
 
+app.get('/courses', authenticate, async (req, res, next) => {
+  try {
+    const courses = await getALlCourses();
+    if (!courses) {
+      res.status(404).send('Nothing found in Database!')
+      return;
+    }
+    res.send(courses);
+  } catch
+    (error) {
+    next(error);
+  }
+})
+
+// Get obligatory courses for user (userId)
+app.post('/courses', authenticate, async (req, res, next) => {
+  try {
+    const {userId} = req.body;
+    const obligCourses = await getObligUserCoursesByUserId(userId)
+    if (!obligCourses) {
+      res.status(404).send('Could not find course, sorry')
+      return;
+    }
+    res.send(obligCourses);
+  } catch (error) {
+    next(error);
+  }
+})
 
 app.post('/profile', authenticate, async (req, res, next) => {
   try {
@@ -93,6 +121,8 @@ app.post('/profile', authenticate, async (req, res, next) => {
     next(error);
   }
 })
+
+
 
 // start the Express server
 app.listen(port, () => {
