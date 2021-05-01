@@ -59,17 +59,47 @@ function getUserByUserName(userName) {
 }
 
 function getObligUserCoursesByUserId(userId) {
-  return database.query(`
-    SELECT user_courses.course_id, course_name, course_description, image_url, image_description, start_date, end_date, enrollment_start, enrollment_end, org, specialization_name
-    FROM courses
-         JOIN user_courses
-                   ON user_courses.course_id = courses.course_id
-         JOIN users
-                   ON users.user_id = user_courses.user_id
-         JOIN specialization
-                   ON specialization.specialization_id = users.specialization_id
-    WHERE user_courses.user_id = $1;
-  `, [userId])
-    .then((results) => results.rows)
+    return database.query(`
+        SELECT user_courses.course_id,
+               course_name,
+               course_description,
+               image_url,
+               image_description,
+               start_date,
+               end_date,
+               enrollment_start,
+               enrollment_end,
+               org,
+               specialization_name
+        FROM courses
+                 JOIN user_courses
+                      ON user_courses.course_id = courses.course_id
+                 JOIN users
+                      ON users.user_id = user_courses.user_id
+                 JOIN specialization
+                      ON specialization.specialization_id = users.specialization_id
+        WHERE user_courses.user_id = $1;
+    `, [userId])
+        .then((results) => results.rows)
 }
-module.exports = { getALlCourses, getUserByUserName, getUserProfile, getCourseById, getObligUserCoursesByUserId};
+
+
+function getStartedCourses(userId) {
+  return database.query(`
+    SELECT *
+    FROM user_courses
+    WHERE is_started = true
+        AND user_id = $1;`
+    , [userId])
+    .then((result) => result.rows)
+}
+
+
+module.exports = {
+  getALlCourses,
+  getUserByUserName,
+  getUserProfile,
+  getCourseById,
+  getObligUserCoursesByUserId,
+  getStartedCourses
+  }
