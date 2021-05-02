@@ -87,7 +87,11 @@ CREATE TABLE user_courses (
                               user_id INT NOT NULL,
                               FOREIGN KEY (user_id) REFERENCES users(user_id),
                               course_id INT NOT NULL,
-                              FOREIGN KEY (course_id) REFERENCES courses(course_id)
+                              FOREIGN KEY (course_id) REFERENCES courses(course_id),
+                              is_obligatory BIT,
+                              is_started BIT,
+                              is_finished BIT,
+                              is_enrolled_in BIT
 );
 
 
