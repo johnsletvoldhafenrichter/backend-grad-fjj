@@ -11,7 +11,7 @@ const {getALlCourses,
   getUserProfile,
   getCourseById,
   getObligUserCoursesByUserId,
-  getStartedCourses
+  getStartedCoursesByUserId
   } = require('./database.js');
 
 const port = process.env.PORT || 3333; // default port to listen
@@ -117,7 +117,7 @@ app.post('/mycourses', authenticate, async (req, res, next) => {
   try {
     console.log('req.body');
     const {userId} = req.body;
-    const myStartedCourses = await getStartedCourses(userId);
+    const myStartedCourses = await getStartedCoursesByUserId(userId);
     if (!myStartedCourses) {
       res.status(404).send('No courses found in the Database')
       return;
