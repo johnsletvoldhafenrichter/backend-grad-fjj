@@ -11,7 +11,9 @@ const {getALlCourses,
   getUserProfile,
   getCourseById,
   getObligUserCoursesByUserId,
-  getStartedCoursesByUserId
+  getStartedCoursesByUserId,
+  getEnrolledCoursesByUserId,
+  getCompletedCoursesByUserId
   } = require('./database.js');
 
 const port = process.env.PORT || 3333; // default port to listen
@@ -113,19 +115,43 @@ app.post('/profile', authenticate, async (req, res, next) => {
   }
 })
 
-app.post('/mycourses', authenticate, async (req, res, next) => {
+app.post('/myStartedCourses', authenticate, async (req, res, next) => {
   try {
-    console.log('req.body');
     const {userId} = req.body;
     const myStartedCourses = await getStartedCoursesByUserId(userId);
     if (!myStartedCourses) {
       res.status(404).send('No courses found in the Database')
       return;
     }
-
     res.send(myStartedCourses);
+  } catch (error) {
+    next(error);
+  }
+})
 
-    console.log(myStartedCourses);
+app.post('/myEnrolledCourses', authenticate, async (req, res, next) => {
+  try {
+    const {userId} = req.body;
+    const myStartedCourses = await getEnrolledCoursesByUserId(userId);
+    if (!myStartedCourses) {
+      res.status(404).send('No courses found in the Database')
+      return;
+    }
+    res.send(myStartedCourses);
+  } catch (error) {
+    next(error);
+  }
+})
+
+app.post('/myCompletedCourses', authenticate, async (req, res, next) => {
+  try {
+    const {userId} = req.body;
+    const myStartedCourses = await getCompletedCoursesByUserId(userId);
+    if (!myStartedCourses) {
+      res.status(404).send('No courses found in the Database')
+      return;
+    }
+    res.send(myStartedCourses);
   } catch (error) {
     next(error);
   }
