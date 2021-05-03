@@ -110,6 +110,15 @@ VALUES (
            '2021-04-15',
            '2021-11-01',
            'NTNU'
+       )
+       (
+            'https://media.istockphoto.com/photos/japanese-female-get-acupuncture-treatment-in-kyoto-japan-picture-id542806712?k=6&m=542806712&s=612x612&w=0&h=a8z-r7lXD3w9cpp_3IV2MJ2kdFyrhwM0O2sWNBbVsZw=',
+            'image10',
+            'The swallow may fly south with the sun, and the house martin or the plover may seek warmer climes in winter, yet these are not strangers to our land. Bloody Peasant! Ni! Ni! Ni! Ni! It''s only a model.',
+            'Når akupunktur er rikig',
+            '2021-01-05',
+            '2021-03-30',
+            '2020-10-15',
+            '2020-11-30',
+            'UiT'
        );
-
-
