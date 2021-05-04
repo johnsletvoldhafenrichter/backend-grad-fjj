@@ -11,6 +11,7 @@ const {getALlCourses,
   getUserProfile,
   getCourseById,
   getObligUserCoursesByUserId,
+  getLocalUserCoursesByUserId,
   getStartedCoursesByUserId,
   getEnrolledCoursesByUserId,
   getCompletedCoursesByUserId
@@ -87,7 +88,7 @@ app.post('/course', authenticate, async (req, res, next) => {
 })
 
 // Get obligatory courses for user (userId)
-app.post('/courses', authenticate, async (req, res, next) => {
+app.post('/obligatory', authenticate, async (req, res, next) => {
   try {
     const {userId} = req.body;
     const obligCourses = await getObligUserCoursesByUserId(userId)
@@ -96,6 +97,34 @@ app.post('/courses', authenticate, async (req, res, next) => {
       return;
     }
     res.send(obligCourses);
+  } catch (error) {
+    next(error);
+  }
+})
+
+app.post('/local', authenticate, async (req, res, next) => {
+  try {
+    const {userId} = req.body;
+    const localCourses = await getLocalUserCoursesByUserId(userId)
+    if (!localCourses) {
+      res.status(404).send('Could not find course, sorry')
+      return;
+    }
+    res.send(localCourses);
+  } catch (error) {
+    next(error);
+  }
+})
+
+app.post('/recommended', authenticate, async (req, res, next) => {
+  try {
+    const {userId} = req.body;
+    const recommendedCourses = await getRecommendedUserCoursesByUserId(userId)
+    if (!recommendedCourses) {
+      res.status(404).send('Could not find course, sorry')
+      return;
+    }
+    res.send(recommendedCourses);
   } catch (error) {
     next(error);
   }
