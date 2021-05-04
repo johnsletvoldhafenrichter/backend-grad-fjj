@@ -83,6 +83,33 @@ function getObligUserCoursesByUserId(userId) {
         .then((results) => results.rows)
 }
 
+function getLocalUserCoursesByUserId(userId) {
+  return database.query(`
+      SELECT 
+             c.course_name,
+             c.course_description,
+             c.image_url,
+             c.image_description,
+             c.start_date,
+             c.end_date,
+             c.enrollment_start,
+             c.enrollment_end,
+             c.org,
+             l.location_name, 
+             u.user_name
+      FROM 
+           courses AS c, 
+           location_courses AS lc, 
+           location AS l, 
+           users AS u
+      WHERE c.course_id = lc.course_id 
+        AND lc.location_id = l.location_id 
+        AND l.location_id = u.location_id
+        AND u.user_id = $1;
+  `, [userId])
+    .then((results) => results.rows)
+}
+
 function getStartedCoursesByUserId(userId) {
   return database.query(`
     SELECT user_courses.course_id,
@@ -167,6 +194,7 @@ module.exports = {
   getUserProfile,
   getCourseById,
   getObligUserCoursesByUserId,
+  getLocalUserCoursesByUserId,
   getStartedCoursesByUserId,
   getEnrolledCoursesByUserId,
   getCompletedCoursesByUserId
