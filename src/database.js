@@ -21,12 +21,12 @@ function getUserProfile(userId) {
                specialization_name,
                location_name
         FROM users
-                 LEFT JOIN position
-                           ON position.position_id = users.position_id
-                 LEFT JOIN location
-                           ON location.location_id = users.location_id
-                 LEFT JOIN specialization
-                           ON specialization.specialization_id = users.specialization_id
+   LEFT JOIN position
+             ON position.position_id = users.position_id
+   LEFT JOIN location
+             ON location.location_id = users.location_id
+   LEFT JOIN specialization
+             ON specialization.specialization_id = users.specialization_id
         WHERE user_id = $1;
     `, [userId])
         .then(results => results.rows[0])
@@ -42,13 +42,14 @@ function getALlCourses() {
 
 function getCourseById(courseId) {
   return database.query(`
-      SELECT DISTINCT c.*,
-                      l.location_name
+      SELECT DISTINCT 
+            c.*,
+            l.location_name
       FROM courses as c
-               LEFT JOIN location_courses as lc
-                         ON c.course_id = lc.course_id
-               LEFT JOIN location as l
-                         ON lc.location_id = l.location_id
+        LEFT JOIN location_courses as lc
+            ON c.course_id = lc.course_id
+        LEFT JOIN location as l
+            ON lc.location_id = l.location_id
       WHERE c.course_id = $1;
   `, [courseId])
     .then(results => results.rows)
@@ -65,25 +66,25 @@ function getUserByUserName(userName) {
 
 function getObligUserCoursesByUserId(userId) {
     return database.query(`
-        SELECT user_courses.course_id,
-               course_name,
-               course_description,
-               image_url,
-               image_description,
-               start_date,
-               end_date,
-               enrollment_start,
-               enrollment_end,
-               org,
-               specialization_name
-        FROM courses
-                 JOIN user_courses
-                      ON user_courses.course_id = courses.course_id
-                 JOIN users
-                      ON users.user_id = user_courses.user_id
-                 JOIN specialization
-                      ON specialization.specialization_id = users.specialization_id
-        WHERE user_courses.user_id = $1;
+    SELECT user_courses.course_id,
+           course_name,
+           course_description,
+           image_url,
+           image_description,
+           start_date,
+           end_date,
+           enrollment_start,
+           enrollment_end,
+           org,
+           specialization_name
+    FROM courses
+             JOIN user_courses
+                  ON user_courses.course_id = courses.course_id
+             JOIN users
+                  ON users.user_id = user_courses.user_id
+             JOIN specialization
+                  ON specialization.specialization_id = users.specialization_id
+    WHERE user_courses.user_id = $1;
     `, [userId])
         .then((results) => results.rows)
 }
@@ -141,78 +142,78 @@ function getRecommendedUserCoursesByUserId(userId) {
 
 function getStartedCoursesByUserId(userId) {
     return database.query(`
-                SELECT user_courses.course_id,
-                       course_name,
-                       course_description,
-                       image_url,
-                       image_description,
-                       start_date,
-                       end_date,
-                       enrollment_start,
-                       enrollment_end,
-                       org,
-                       specialization_name
-                FROM courses
-                         JOIN user_courses
-                              ON user_courses.course_id = courses.course_id
-                         JOIN users
-                              ON users.user_id = user_courses.user_id
-                         JOIN specialization
-                              ON specialization.specialization_id = users.specialization_id
-                WHERE is_started = true
-                  AND user_courses.user_id = $1;`
+        SELECT user_courses.course_id,
+               course_name,
+               course_description,
+               image_url,
+               image_description,
+               start_date,
+               end_date,
+               enrollment_start,
+               enrollment_end,
+               org,
+               specialization_name
+        FROM courses
+                 JOIN user_courses
+                      ON user_courses.course_id = courses.course_id
+                 JOIN users
+                      ON users.user_id = user_courses.user_id
+                 JOIN specialization
+                      ON specialization.specialization_id = users.specialization_id
+        WHERE is_started = true
+          AND user_courses.user_id = $1;`
         , [userId])
         .then((result) => result.rows)
 }
 
 function getEnrolledCoursesByUserId(userId) {
     return database.query(`
-                SELECT user_courses.course_id,
-                       course_name,
-                       course_description,
-                       image_url,
-                       image_description,
-                       start_date,
-                       end_date,
-                       enrollment_start,
-                       enrollment_end,
-                       org,
-                       specialization_name
-                FROM courses
-                         JOIN user_courses
-                              ON user_courses.course_id = courses.course_id
-                         JOIN users
-                              ON users.user_id = user_courses.user_id
-                         JOIN specialization
-                              ON specialization.specialization_id = users.specialization_id
-                WHERE is_enrolled_in = true
-                  AND user_courses.user_id = $1;`
+        SELECT user_courses.course_id,
+               course_name,
+               course_description,
+               image_url,
+               image_description,
+               start_date,
+               end_date,
+               enrollment_start,
+               enrollment_end,
+               org,
+               specialization_name
+        FROM courses
+                 JOIN user_courses
+                      ON user_courses.course_id = courses.course_id
+                 JOIN users
+                      ON users.user_id = user_courses.user_id
+                 JOIN specialization
+                      ON specialization.specialization_id = users.specialization_id
+        WHERE is_enrolled_in = true
+          AND user_courses.user_id = $1;`
         , [userId])
         .then((result) => result.rows)
 }
 
 function getCompletedCoursesByUserId(userId) {
     return database.query(`
-                SELECT user_courses.course_id,
-                       course_name,
-                       course_description,
-                       image_url,
-                       image_description,
-                       start_date,
-                       end_date,
-                       enrollment_start,
-                       enrollment_end,
-                       org,
-                       specialization_name
-                FROM courses
-                         JOIN user_courses
-                              ON user_courses.course_id = courses.course_id
-                         JOIN users
-                              ON users.user_id = user_courses.user_id
-                         JOIN specialization
-                              ON specialization.specialization_id = users.specialization_id
-                WHERE is_finished = true
-                  AND user_courses.user_id = $1;`
+          SELECT user_courses.course_id,
+                 course_name,
+                 course_description,
+                 image_url,
+                 image_description,
+                 start_date,
+                 end_date,
+                 enrollment_start,
+                 enrollment_end,
+                 org,
+                 specialization_name
+          FROM courses
+                   JOIN user_courses
+                        ON user_courses.course_id = courses.course_id
+                   JOIN users
+                        ON users.user_id = user_courses.user_id
+                   JOIN specialization
+                        ON specialization.specialization_id = users.specialization_id
+          WHERE is_finished = true
+            AND user_courses.user_id = $1;`
         , [userId])
         .then((result) => result.rows)
 }
@@ -277,7 +278,16 @@ function getFilteredQueryAll(filter, selectedTags) {
 function getFilteredQueryByUser(filter, selectedTags, user_id) {
     const query = {
         text: `
-        SELECT *
+        SELECT DISTINCT
+            courses.course_id,
+            course_name,
+            image_url,
+            image_description,
+            start_date,
+            end_date,
+            enrollment_start,
+            enrollment_end,
+            org
         FROM courses
         JOIN ${filter}_courses
             ON ${filter}_courses.course_id = courses.course_id
