@@ -14,7 +14,9 @@ const {getALlCourses,
   getLocalUserCoursesByUserId,
   getStartedCoursesByUserId,
   getEnrolledCoursesByUserId,
-  getCompletedCoursesByUserId
+  getCompletedCoursesByUserId,
+  getFilteredCoursesByUser,
+  getFilteredCourses
   } = require('./database.js');
 
 const port = process.env.PORT || 3333; // default port to listen
@@ -181,6 +183,26 @@ app.post('/myCompletedCourses', authenticate, async (req, res, next) => {
       return;
     }
     res.send(myStartedCourses);
+  } catch (error) {
+    next(error);
+  }
+})
+
+app.post('/filter', authenticate, async (req, res, next) => {
+  try {
+    const {user_id,filter,path} = req.body;
+    let filteredCourses;
+    if (path === '/courses') {
+      filteredCourses = await getFilteredCourses(filter);
+    } else {
+      console.log('users')
+      filteredCourses = await getFilteredCoursesByUser(filter, user_id);
+    }
+    if (!filteredCourses) {
+      res.status(404).send('No courses found in the Database')
+      return;
+    }
+    res.send(filteredCourses);
   } catch (error) {
     next(error);
   }
