@@ -217,6 +217,29 @@ function getCompletedCoursesByUserId(userId) {
     .then((result) => result.rows)
 }
 
+function getFilteredCourses(filter) {
+  return database.query(`
+    SELECT * FROM ${filter};`)
+  .then((result) => result.rows)
+}
+
+function getFilteredCoursesByUser(filter, user_id) {
+    return database.query(`
+        SELECT DISTINCT ${filter}.${filter}_name 
+        FROM courses 
+            JOIN user_courses
+                ON user_courses.course_id = courses.course_id 
+            JOIN users 
+                ON users.user_id = user_courses.user_id 
+            LEFT JOIN ${filter}_courses 
+                ON ${filter}_courses.course_id = courses.course_id 
+            LEFT JOIN ${filter} 
+                ON ${filter}.${filter}_id = ${filter}_courses.${filter}_id 
+        WHERE users.user_id = ${user_id}
+    `)
+        .then((result) => result.rows).then((result) => console.log(result))
+}
+
 module.exports = {
   getALlCourses,
   getUserByUserName,
@@ -227,5 +250,7 @@ module.exports = {
   getRecommendedUserCoursesByUserId,
   getStartedCoursesByUserId,
   getEnrolledCoursesByUserId,
-  getCompletedCoursesByUserId
+  getCompletedCoursesByUserId,
+  getFilteredCourses,
+  getFilteredCoursesByUser
   }
