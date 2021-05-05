@@ -17,7 +17,9 @@ const {getALlCourses,
   getEnrolledCoursesByUserId,
   getCompletedCoursesByUserId,
   getFilteredCoursesByUser,
-  getFilteredCourses
+  getFilteredCourses,
+  getFilteredQueryAll,
+  getFilteredQueryByUser
   } = require('./database.js');
 
 const port = process.env.PORT || 3333; // default port to listen
@@ -208,7 +210,24 @@ app.post('/filter', authenticate, async (req, res, next) => {
   }
 })
 
-
+app.post('/filterquery', authenticate, async (req, res, next) => {
+  try {
+    const {user_id,path,selectedTags, activeTab} = req.body;
+    let filteredQueryResult;
+    if (path === '/courses') {
+      filteredQueryResult = await getFilteredQueryAll(activeTab, selectedTags);
+    } else {
+      filteredQueryResult = await getFilteredQueryByUser(activeTab, selectedTags, user_id);
+    }
+    if (!filteredQueryResult) {
+      res.status(404).send('No courses found in the Database')
+      return;
+    }
+    res.send(filteredQueryResult);
+  } catch (error) {
+    next(error);
+  }
+})
 
 // start the Express server
 app.listen(port, () => {
