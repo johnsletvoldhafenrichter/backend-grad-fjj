@@ -249,7 +249,16 @@ function getFilteredCoursesByUser(filter, user_id) {
 function getFilteredQueryAll(filter, selectedTags) {
     const query = {
         text: `
-        SELECT *
+        SELECT DISTINCT
+            courses.course_id,
+            course_name,
+            image_url,
+            image_description,
+            start_date,
+            end_date,
+            enrollment_start,
+            enrollment_end,
+            org
         FROM courses
         JOIN ${filter}_courses
             ON ${filter}_courses.course_id = courses.course_id
