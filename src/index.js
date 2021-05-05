@@ -196,7 +196,6 @@ app.post('/filter', authenticate, async (req, res, next) => {
     if (path === '/courses') {
       filteredCourses = await getFilteredCourses(filter);
     } else {
-      console.log('users')
       filteredCourses = await getFilteredCoursesByUser(filter, user_id);
     }
     if (!filteredCourses) {
