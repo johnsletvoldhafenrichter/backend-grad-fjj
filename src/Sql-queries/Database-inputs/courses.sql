@@ -110,7 +110,7 @@ VALUES (
            '2021-04-15',
            '2021-11-01',
            'NTNU'
-       )
+       ),
        (
             'https://media.istockphoto.com/photos/japanese-female-get-acupuncture-treatment-in-kyoto-japan-picture-id542806712?k=6&m=542806712&s=612x612&w=0&h=a8z-r7lXD3w9cpp_3IV2MJ2kdFyrhwM0O2sWNBbVsZw=',
             'image10',
@@ -122,3 +122,105 @@ VALUES (
             '2020-11-30',
             'UiT'
        );
+
+
+
+INSERT INTO courses (
+    image_url,
+    image_description,
+    course_description,
+    course_name,
+    start_date,
+    end_date,
+    enrollment_start,
+    enrollment_end,
+    org)
+VALUES (
+        'https://media.istockphoto.com/photos/dermatologist-examining-patient-for-signs-of-skin-cancer-picture-id514880133?k=6&m=514880133&s=612x612&w=0&h=VO5krlOJzoqMP6efeiZ_gjSztV9Ap9DpuUuCh-s4rvQ=',
+        'image11',
+        'Be quiet! Well, I didn''t vote for you. Why? And this isn''t my nose. This is a false one.',
+        'Dermatologi',
+        '2021-01-05',
+        '2021-01-05',
+        '2021-01-05',
+        '2021-01-05',
+        'UiO'
+       ),
+       (
+           'https://media.istockphoto.com/photos/spa-woman-female-enjoying-massage-in-spa-centre-picture-id492676582?k=6&m=492676582&s=612x612&w=0&h=m6eDprJYt5GdNz1vujwZtR-fCIw7RXNi5BpuGRiFZN4=',
+           'image12',
+           'I''m surprised you had the courage to take the responsibility yourself. Your eyes can deceive you. Don''t trust them. Leave that to me. Send a distress signal, and inform the Senate that all on board were killed.',
+           'Massering',
+           '2021-01-05',
+           '2021-01-05',
+           '2021-01-05',
+           '2021-01-05',
+           'UiO'
+       ),
+       (
+           'https://media.istockphoto.com/photos/brain-activity-picture-id497487570?k=6&m=497487570&s=612x612&w=0&h=o12S9Kxe6OoTXSi6yW3Esp7z-tH7q_vRGVvDYr54Ubg=',
+           'image13',
+           'And here I am using my own lungs like a sucker. Brace yourselves gentlemen. According to the gas chromatograph, the secret ingredient is… Love!? Who''s been screwing with this thing? Lisa, vampires are make-believe, like elves, gremlins, and Eskimos.',
+           'Nevrologi 102',
+           '2021-01-05',
+           '2021-01-05',
+           '2021-01-05',
+           '2021-01-05',
+           'UiO'
+       ),
+       (
+           'https://media.istockphoto.com/photos/female-surgeon-wearing-surgical-mask-in-operation-theater-at-hospital-picture-id1155608121?k=6&m=1155608121&s=612x612&w=0&h=6o6qpTKxbnLZYBSbtu8w6ukYoRB4JTicF-5J9Ull5PA=',
+           'image14',
+           'Uh, no, you got the wrong number. This is 9-1…2. I prefer a vehicle that doesn''t hurt Mother Earth. It''s a go-cart, powered by my own sense of self-satisfaction. Our differences are only skin deep, but our sames go down to the bone.',
+           'Bekledning for operasjoner',
+           '2021-01-05',
+           '2021-01-05',
+           '2021-01-05',
+           '2021-01-05',
+           'UiO'
+       ),
+       (
+           'https://media.istockphoto.com/photos/surgeons-working-in-operating-room-picture-id493216361?k=6&m=493216361&s=612x612&w=0&h=N0eZtiu0l4UPrc5y4UNlxAK_tdyQhvfNyKPs-bIElYU=',
+           'image15',
+           'When I held that gun in my hand, I felt a surge of power…like God must feel when he''s holding a gun. I''m going to the back seat of my car, with the woman I love, and I won''t be back for ten minutes!',
+           'Operasjonsteknikk 102',
+           '2021-01-05',
+           '2021-01-05',
+           '2021-01-05',
+           '2021-01-05',
+           'UiO'
+       ),
+       (
+           'https://media.istockphoto.com/photos/team-of-research-scientists-working-on-computer-with-medical-blood-picture-id1140779754?k=6&m=1140779754&s=612x612&w=0&h=SIojweO1OqaHrYFFcFOHw80eoW6aHRgxxHZM0ezJXyw=',
+           'image16',
+           'It''s called ''taking advantage.'' It''s what gets you ahead in life. Guy''s a pro. What''s Spanish for "I know you speak English?" He''ll want to use your yacht, and I don''t want this thing smelling like fish.',
+           'Laboriatoie-etikkette',
+           '2021-01-05',
+           '2021-01-05',
+           '2021-01-05',
+           '2021-01-05',
+           'UiO'
+       ),
+       (
+           'https://media.istockphoto.com/photos/putting-test-tubes-into-the-holder-picture-id946264212?k=6&m=946264212&s=612x612&w=0&h=CqTOqEYk5yfpl4sKE5sh__RGWvl2bM9voF4qp9J_wBM=',
+           'image17',
+           'I''m a monster. Michael! I''m a monster. That''s why you always leave a note!',
+           'Tolkning av testsvar',
+           '2021-01-05',
+           '2021-01-05',
+           '2021-01-05',
+           '2021-01-05',
+           'UiO'
+       ),
+       (
+           'https://media.istockphoto.com/photos/scientists-in-laboratory-working-on-research-picture-id1012405368?k=6&m=1012405368&s=612x612&w=0&h=-37LrYH7a38ywgNg6RZSgJvfDwhtN6p2M_smjPFaNx4=',
+           'image18',
+           'As you may or may not know, Lindsay and I have hit a bit of a rough patch. No! I was ashamed to be SEEN with you. I like being with you. I don''t criticize you! And if you''re worried about criticism, sometimes a diet is the best defense.',
+           'Mikroskopi',
+           '2021-01-05',
+           '2021-01-05',
+           '2021-01-05',
+           '2021-01-05',
+           'UiO'
+       )
+       ;
