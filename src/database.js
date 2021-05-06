@@ -91,7 +91,8 @@ function getObligUserCoursesByUserId(userId) {
 
 function getLocalUserCoursesByUserId(userId) {
     return database.query(`
-        SELECT c.course_name,
+        SELECT c.course_id,
+               c.course_name,
                c.course_description,
                c.image_url,
                c.image_description,
